@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="yz.com.impala.dao.znq.BigSurfDayEleDao">
+
+    <sql id="myQueryCondition">
+        <where>
+
+            <if test="v04001 != null">
+                and V04001 in
+                <foreach item="item" index="index" collection="v04001" open="("
+                         separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="v04002 != null">
+                and V04002 in
+                <foreach item="item" index="index" collection="v04002" open="("
+                         separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="v04003 != null">
+                <![CDATA[and v04003 = #{v04003}]]>
+            </if>
+            <if test="dates != null">
+                and NDATE in
+                <foreach item="item" index="index" collection="dates" open="("
+                         separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="nstart != null">
+                <![CDATA[AND NDATE >= #{nstart} ]]>
+            </if>
+            <if test="nend != null">
+                <![CDATA[AND NDATE <= #{nend} ]]>
+            </if>
+            <if test="ndates1 != null">
+                <![CDATA[and NDATE >= #{ndates1}]]>
+            </if>
+            <if test="ndatee1 != null">
+                <![CDATA[and NDATE <= #{ndatee1}]]>
+            </if>
+            <if test="v12052s1 != null">
+                <![CDATA[and V12052 >= #{v12052s1}]]>
+            </if>
+            <if test="v12052e1 != null">
+                <![CDATA[and V12052 <= #{v12052e1}]]>
+            </if>
+            <if test="v12053s1 != null">
+                <![CDATA[and V12053 >= #{v12053s1}]]>
+            </if>
+            <if test="v12053e1 != null">
+                <![CDATA[and V12053 <= #{v12053e1}]]>
+            </if>
+            <if test="v13201s1 != null">
+                <![CDATA[and V13201 >= #{v13201s1}]]>
+            </if>
+            <if test="v13201e1 != null">
+                <![CDATA[and V13201 <= #{v13201e1}]]>
+            </if>
+            <if test="v14032s1 != null">
+                <![CDATA[and V14032 >= #{v14032s1}]]>
+            </if>
+            <if test="v14032e1 != null">
+                <![CDATA[and V14032 <= #{v14032e1}]]>
+            </if>
+            <if test="ndates2 != null">
+                <![CDATA[and NDATE > #{ndates2}]]>
+            </if>
+            <if test="ndatee2 != null">
+                <![CDATA[and NDATE < #{ndatee2}]]>
+            </if>
+            <if test="v12052s2 != null">
+                <![CDATA[and V12052 > #{v12052s2}]]>
+            </if>
+            <if test="v12052e2 != null">
+                <![CDATA[and V12052 < #{v12052e2}]]>
+            </if>
+            <if test="v12053s2 != null">
+                <![CDATA[and V12053 > #{v12053s2}]]>
+            </if>
+            <if test="v12053e2 != null">
+                <![CDATA[and V12053 < #{v12053e2}]]>
+            </if>
+            <if test="v13201s2 != null">
+                <![CDATA[and V13201 > #{v13201s2}]]>
+            </if>
+            <if test="v13201e2 != null">
+                <![CDATA[and V13201 < #{v13201e2}]]>
+            </if>
+            <if test="v14032s2 != null">
+                <![CDATA[and V14032 >= #{v14032s2}]]>
+            </if>
+            <if test="v14032e2 != null">
+                <![CDATA[and V14032 <= #{v14032e2}]]>
+            </if>
+            <if test="ndateMap != null">
+                <foreach index="key" item="value" collection="ndateMap" open="(" separator=" or " close=")">
+                    <![CDATA[ndate >= #{key}]]> and <![CDATA[ ndate <= #{value}]]>
+                </foreach>
+            </if>
+            <if test="v01000 != null">
+                and V01000 in
+                <foreach item="item" index="index" collection="v01000" open="("
+                         separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="statIds != null">
+                AND V01000 IN
+                <foreach item="item" index="index" collection="statIds" open="("
+                         separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </sql>
+
+    <select id="getCountByMap" resultType="java.lang.Long">
+        select count(*)
+        from t_r_surf_day_ele
+        <include refid="myQueryCondition"/>
+    </select>
+
+
+</mapper>

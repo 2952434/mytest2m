@@ -1,0 +1,44 @@
+server:
+  port: 8066
+#  servlet:
+#    context-path: /mete
+
+spring:
+  redis:
+    port: 6379
+    host: 192.168.1.248
+    password: agromdba
+  application:
+    name: mytest2
+
+
+
+yz:
+  service:
+    exception:
+      enabled: true
+    swagger:
+      enabled: true
+    cors:
+      enabled: true
+    data-source:
+      enabled: false
+    security:
+      white-list-urls:
+        - /test/**
+    center:
+      ip: 192.168.1.245
+      port: 39002
+
+  datasource:
+    znq:
+      url: jdbc:impala://192.168.1.245:21050/znqdb;AuthMech=0;
+      username: ''
+      password: ''
+      driverClassName: com.cloudera.impala.jdbc41.Driver
+    meta:
+      url: jdbc:impala://192.168.1.245:21050/znqdb_meta;AuthMech=0;
+      username: ''
+      password: ''
+      driverClassName: com.cloudera.impala.jdbc41.Driver
+#debug: true

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 seconds">
+
+    <!-- 日志文件前缀名称 -->
+    <property name="log.name" value="stater-test"/>
+    <!-- 引入标准格式器 -->
+    <include resource="config/yzlog.xml"/>
+
+    <springProfile name="dev">
+        <logger name="yz.com.impala.dao" level="DEBUG" additivity="false">
+            <!-- 使用标准格式 -->
+            <appender-ref ref="YZ_CONSOLE"/>
+        </logger>
+        <logger name="cagmss.com.dao" level="DEBUG" additivity="false">
+            <appender-ref ref="YZ_CONSOLE"/>
+        </logger>
+        <logger name="springfox.documentation.spring.web.plugins.DefaultRequestHandlerCombiner" level="DEBUG" additivity="false">
+            <appender-ref ref="YZ_CONSOLE"/>
+        </logger>
+        <logger name="com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver" level="warn" additivity="false">
+            <appender-ref ref="YZ_CONSOLE"/>
+        </logger>
+        <!-- 屏蔽impala不支持jdbc规范的警告异常 -->
+        <logger name="com.mchange.v2.c3p0.SQLWarnings" level="warn" additivity="false">
+            <appender-ref ref="YZ_CONSOLE"/>
+        </logger>
+        <root level="info" additivity="false">
+            <appender-ref ref="YZ_CONSOLE"/>
+            <appender-ref ref="YZ_FILE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="test">
+        <logger name="cagmss.com.dao" level="debug">
+            <appender-ref ref="YZ_CONSOLE"/>
+            <appender-ref ref="YZ_FILE"/>
+        </logger>
+        <logger name="com.mchange.v2.c3p0.SQLWarnings" level="warn">
+            <appender-ref ref="YZ_CONSOLE"/>
+            <appender-ref ref="YZ_FILE"/>
+        </logger>
+        <root level="info">
+            <appender-ref ref="YZ_CONSOLE"/>
+            <appender-ref ref="YZ_FILE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+        <logger name="cagmss.com.dao" level="debug" additivity="false">
+            <appender-ref ref="YZ_FILE"/>
+        </logger>
+        <logger name="springfox.documentation.spring.web.plugins.DefaultRequestHandlerCombiner" level="DEBUG"
+                additivity="false">
+            <appender-ref ref="YZ_FILE"/>
+        </logger>
+        <logger name="com.mchange.v2.c3p0.SQLWarnings" level="warn" additivity="false">
+            <appender-ref ref="YZ_FILE"/>
+        </logger>
+        <root level="info" additivity="false">
+            <appender-ref ref="YZ_FILE"/>
+        </root>
+    </springProfile>
+
+</configuration>

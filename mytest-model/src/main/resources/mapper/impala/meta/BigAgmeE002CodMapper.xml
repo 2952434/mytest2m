@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yz.com.impala.dao.meta.BigAgmeE002CodDao">
+    <resultMap id="BaseResultMap" type="yz.com.impala.bean.meta.AgmeE002Cod">
+        <id column="c_code" jdbcType="VARCHAR" property="cCode"/>
+        <result column="c_grassname" jdbcType="VARCHAR" property="cGrassname"/>
+        <result column="c_family" jdbcType="VARCHAR" property="cFamily"/>
+        <result column="c_scientificname" jdbcType="VARCHAR" property="cScientificname"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        c_code
+        , c_grassname, c_family, c_scientificname
+    </sql>
+    <sql id="queryCondition">
+        <where>
+            <if test="cCode != null">
+                and C_CODE in
+                <foreach item="item" index="index" collection="cCode"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="cGrassname != null">
+                and C_CROP like #{cGrassname,jdbcType=VARCHAR}
+            </if>
+            <if test="cFamily != null">
+                and C_CROPNAME like #{cFamily,jdbcType=VARCHAR}
+            </if>
+            <if test="cScientificname != null">
+                and C_CROPVIRTETIES like #{cScientificname,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_p_agme_e002_cod
+        where c_code = #{cCode,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getByMap" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_p_agme_e002_cod
+        <include refid="queryCondition"/>
+    </select>
+
+
+    <sql id="Criteria_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Criteria_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <select id="selectByCriteria" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from t_p_agme_e002_cod
+        <if test="_parameter != null">
+            <include refid="Criteria_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <delete id="deleteByCriteria">
+        delete from t_p_agme_e002_cod
+        <if test="_parameter != null">
+            <include refid="Criteria_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert">
+        insert into t_p_agme_e002_cod (c_code, c_grassname, c_family,
+                                       c_scientificname)
+        values (#{cCode,jdbcType=VARCHAR}, #{cGrassname,jdbcType=VARCHAR}, #{cFamily,jdbcType=VARCHAR},
+                #{cScientificname,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective">
+        insert into t_p_agme_e002_cod
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cCode != null">
+                c_code,
+            </if>
+            <if test="cGrassname != null">
+                c_grassname,
+            </if>
+            <if test="cFamily != null">
+                c_family,
+            </if>
+            <if test="cScientificname != null">
+                c_scientificname,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cCode != null">
+                #{cCode,jdbcType=VARCHAR},
+            </if>
+            <if test="cGrassname != null">
+                #{cGrassname,jdbcType=VARCHAR},
+            </if>
+            <if test="cFamily != null">
+                #{cFamily,jdbcType=VARCHAR},
+            </if>
+            <if test="cScientificname != null">
+                #{cScientificname,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByCriteria" resultType="java.lang.Long">
+        select count(*) from t_p_agme_e002_cod
+        <if test="_parameter != null">
+            <include refid="Criteria_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByCriteriaSelective" parameterType="map">
+        update t_p_agme_e002_cod
+        <set>
+            <if test="row.cCode != null">
+                c_code = #{row.cCode,jdbcType=VARCHAR},
+            </if>
+            <if test="row.cGrassname != null">
+                c_grassname = #{row.cGrassname,jdbcType=VARCHAR},
+            </if>
+            <if test="row.cFamily != null">
+                c_family = #{row.cFamily,jdbcType=VARCHAR},
+            </if>
+            <if test="row.cScientificname != null">
+                c_scientificname = #{row.cScientificname,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="example != null">
+            <include refid="Update_By_Criteria_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByCriteria" parameterType="map">
+        update t_p_agme_e002_cod
+        set c_code = #{row.cCode,jdbcType=VARCHAR},
+        c_grassname = #{row.cGrassname,jdbcType=VARCHAR},
+        c_family = #{row.cFamily,jdbcType=VARCHAR},
+        c_scientificname = #{row.cScientificname,jdbcType=VARCHAR}
+        <if test="example != null">
+            <include refid="Update_By_Criteria_Where_Clause"/>
+        </if>
+    </update>
+</mapper>
