@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="yz.com.impala.dao.meta.BigStatCodDao">
+    <resultMap id="BaseResultMap"
+               type="yz.com.impala.bean.meta.BigStatCod">
+        <result column="v01000" jdbcType="INTEGER" property="v01000"/>
+        <result column="c_stat_name" jdbcType="VARCHAR" property="cStatName"/>
+        <result column="c_prvo_name" jdbcType="VARCHAR" property="cPrvoName"/>
+        <result column="v05001" jdbcType="DOUBLE" property="v05001"/>
+        <result column="v06001" jdbcType="DOUBLE" property="v06001"/>
+        <result column="v07001" jdbcType="DOUBLE" property="v07001"/>
+        <result column="c_meteosta" jdbcType="VARCHAR" property="cMeteosta"/>
+        <result column="c_agmesta" jdbcType="VARCHAR" property="cAgmesta"/>
+        <result column="c_cropsta" jdbcType="VARCHAR" property="cCropsta"/>
+        <result column="c_soilsta" jdbcType="VARCHAR" property="cSoilsta"/>
+        <result column="c_autosoilsta" jdbcType="VARCHAR" property="cAutosoilsta"/>
+        <result column="c_typestation" jdbcType="VARCHAR" property="cTypestation"/>
+        <result column="c_aera" jdbcType="VARCHAR" property="cAera"/>
+        <result column="c_city" jdbcType="VARCHAR" property="cCity"/>
+        <result column="c_code" jdbcType="INTEGER" property="cCode"/>
+        <result column="c_town_code" jdbcType="VARCHAR" property="cTownCode"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        V01000, C_STAT_NAME, C_PRVO_NAME, V05001, V06001, V07001,
+		C_MeteoSta,
+		C_AgmeSta,
+		C_CropSta, C_SoilSta, C_AutoSoilSta,
+		C_TypeStation, C_AERA, C_City, C_CODE, C_TOWN_CODE
+    </sql>
+    <sql id="queryCondition">
+        <where>
+            <if test="v01000 != null">
+                and V01000 in
+                <foreach item="item" index="index" collection="v01000"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="cStatName != null">
+                and C_STAT_NAME = #{cStatName,jdbcType=VARCHAR}
+            </if>
+            <if test="cPrvoName != null">
+                and C_PRVO_NAME = #{cPrvoName,jdbcType=VARCHAR}
+            </if>
+            <if test="v05001 != null">
+                and V05001 = #{v05001,jdbcType=DOUBLE}
+            </if>
+            <if test="v06001 != null">
+                and V06001 = #{v06001,jdbcType=DOUBLE}
+            </if>
+            <if test="v07001 != null">
+                and V07001 = #{v07001,jdbcType=DOUBLE}
+            </if>
+            <if test="cMeteosta != null">
+                and C_MeteoSta = #{cMeteosta,jdbcType=VARCHAR}
+            </if>
+            <if test="cAgmesta != null">
+                and C_AgmeSta = #{cAgmesta,jdbcType=VARCHAR}
+            </if>
+            <if test="cCropsta != null">
+                and C_CropSta = #{cCropsta,jdbcType=VARCHAR}
+            </if>
+            <if test="cSoilsta != null">
+                and C_SoilSta = #{cSoilsta,jdbcType=VARCHAR}
+            </if>
+            <if test="cAutosoilsta != null">
+                and C_AutoSoilSta = #{cAutosoilsta,jdbcType=VARCHAR}
+            </if>
+            <if test="cTypestation != null">
+                and C_TypeStation in
+                <foreach item="item" index="index" collection="cTypestation"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="cAera != null">
+                and C_AERA in
+                <foreach item="item" index="index" collection="cAera"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="cCity != null">
+                and C_City = #{cCity,jdbcType=VARCHAR}
+            </if>
+            <if test="cCode != null">
+                and C_CODE in
+                <foreach item="item" index="index" collection="cCode"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="cTownCode != null">
+                and C_TOWN_CODE like #{cTownCode,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="getByMap" parameterType="map"
+            resultMap="BaseResultMap">
+        SELECT d.* FROM T_P_MANG_STAT_COD d
+        <include refid="queryCondition"/>
+        ORDER by V01000 asc
+    </select>
+
+
+</mapper>

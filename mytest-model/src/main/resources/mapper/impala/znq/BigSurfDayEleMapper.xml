@@ -122,6 +122,9 @@
         from t_r_surf_day_ele
         <include refid="myQueryCondition"/>
     </select>
+    <select id="getSurfDayEleByDate" resultType="yz.com.impala.bean.znq.SurfDayEle">
+        select * from  t_r_surf_day_ele where ndate = #{date} ;
+    </select>
 
 
 </mapper>

@@ -10,7 +10,8 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        c_code, c_grassname, c_family, c_scientificname
+        c_code
+        , c_grassname, c_family, c_scientificname
     </sql>
     <sql id="queryCondition">
         <where>
@@ -107,33 +108,33 @@
             </foreach>
         </where>
     </sql>
-    <select id="selectByCriteria"  resultMap="BaseResultMap">
+    <select id="selectByCriteria" resultMap="BaseResultMap">
         select
         <if test="distinct">
             distinct
         </if>
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from t_p_agme_e002_cod
         <if test="_parameter != null">
-            <include refid="Criteria_Where_Clause" />
+            <include refid="Criteria_Where_Clause"/>
         </if>
         <if test="orderByClause != null">
             order by ${orderByClause}
         </if>
     </select>
-    <delete id="deleteByCriteria" >
+    <delete id="deleteByCriteria">
         delete from t_p_agme_e002_cod
         <if test="_parameter != null">
-            <include refid="Criteria_Where_Clause" />
+            <include refid="Criteria_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" >
+    <insert id="insert">
         insert into t_p_agme_e002_cod (c_code, c_grassname, c_family,
                                        c_scientificname)
         values (#{cCode,jdbcType=VARCHAR}, #{cGrassname,jdbcType=VARCHAR}, #{cFamily,jdbcType=VARCHAR},
                 #{cScientificname,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" >
+    <insert id="insertSelective">
         insert into t_p_agme_e002_cod
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="cCode != null">
@@ -164,10 +165,10 @@
             </if>
         </trim>
     </insert>
-    <select id="countByCriteria"  resultType="java.lang.Long">
+    <select id="countByCriteria" resultType="java.lang.Long">
         select count(*) from t_p_agme_e002_cod
         <if test="_parameter != null">
-            <include refid="Criteria_Where_Clause" />
+            <include refid="Criteria_Where_Clause"/>
         </if>
     </select>
     <update id="updateByCriteriaSelective" parameterType="map">
@@ -187,7 +188,7 @@
             </if>
         </set>
         <if test="example != null">
-            <include refid="Update_By_Criteria_Where_Clause" />
+            <include refid="Update_By_Criteria_Where_Clause"/>
         </if>
     </update>
     <update id="updateByCriteria" parameterType="map">
@@ -197,7 +198,7 @@
         c_family = #{row.cFamily,jdbcType=VARCHAR},
         c_scientificname = #{row.cScientificname,jdbcType=VARCHAR}
         <if test="example != null">
-            <include refid="Update_By_Criteria_Where_Clause" />
+            <include refid="Update_By_Criteria_Where_Clause"/>
         </if>
     </update>
 </mapper>
